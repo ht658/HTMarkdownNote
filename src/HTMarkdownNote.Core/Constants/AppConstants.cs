@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 namespace HTMarkdownNote.Core.Constants;
 
 public static class AppConstants
