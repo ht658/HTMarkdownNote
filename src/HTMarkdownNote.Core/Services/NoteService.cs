@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using HTMarkdownNote.Core.Models;
 using HTMarkdownNote.Core.Constants;
 
@@ -266,7 +270,7 @@ public class NoteService : INoteService
                 Filename = deletedMetadata.Filename,
                 Title = deletedMetadata.Title,
                 Content = content,
-                Created = DateTime.MinValue, // 不显示
+                Created = DateTime.MinValue,
                 Modified = deletedMetadata.Deleted
             });
         }
@@ -361,7 +365,7 @@ public class NoteService : INoteService
                 Id = noteMetadata.Id,
                 Filename = noteMetadata.Filename,
                 Title = noteMetadata.Title,
-                Content = string.Empty, // 延迟加载内容
+                Content = string.Empty,
                 Created = noteMetadata.Created,
                 Modified = noteMetadata.Modified,
                 WindowX = noteMetadata.WindowX,

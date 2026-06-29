@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using HTMarkdownNote.Core.Models;
 
 namespace HTMarkdownNote.Core.Services;

@@ -1,3 +1,5 @@
+using System;
+
 namespace HTMarkdownNote.Core.Models;
 
 public class Note

@@ -1,4 +1,5 @@
-using HTMarkdownNote.Core.Models;
+using System;
+using System.Linq;
 
 namespace HTMarkdownNote.Core.Services;
 
@@ -69,7 +70,7 @@ public class MarkdownService : IMarkdownService
             return string.Empty;
 
         var lines = markdown.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
-        var previewLines = new List<string>();
+        var previewLines = new System.Collections.Generic.List<string>();
         int lineCount = 0;
 
         foreach (var line in lines)

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace HTMarkdownNote.Core.Models;
 
 public class Metadata
