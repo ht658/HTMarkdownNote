@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>HTMarkdownNote.Core</AssemblyName>
+    <RootNamespace>HTMarkdownNote.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdig.Wpf" Version="0.5.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+</Project>
