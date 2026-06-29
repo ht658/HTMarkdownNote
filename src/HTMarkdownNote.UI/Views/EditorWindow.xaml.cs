@@ -1,6 +1,8 @@
+using System;
 using System.Windows;
 using HTMarkdownNote.Core.Models;
 using HTMarkdownNote.Core.Services;
+using System.Windows.Threading;
 
 namespace HTMarkdownNote.UI;
 
@@ -9,7 +11,7 @@ public partial class EditorWindow : Window
     private readonly INoteService _noteService;
     private readonly IMarkdownService _markdownService;
     private Note? _currentNote;
-    private System.Windows.Threading.DispatcherTimer? _autoSaveTimer;
+    private DispatcherTimer? _autoSaveTimer;
 
     public EditorWindow(INoteService noteService, IMarkdownService markdownService)
     {
@@ -18,7 +20,7 @@ public partial class EditorWindow : Window
         _markdownService = markdownService ?? throw new ArgumentNullException(nameof(markdownService));
 
         // 初始化自动保存计时器（300ms 延迟）
-        _autoSaveTimer = new System.Windows.Threading.DispatcherTimer
+        _autoSaveTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(300)
         };

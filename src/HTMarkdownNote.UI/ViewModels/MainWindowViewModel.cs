@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using HTMarkdownNote.Core.Models;
@@ -9,8 +11,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
 {
     private readonly INoteService _noteService;
     private readonly IMarkdownService _markdownService;
-    private List<Note> _allNotes = new();
-    private List<Note> _displayNotes = new();
+    private List<NoteViewModel> _allNotes = new();
+    private List<NoteViewModel> _displayNotes = new();
     private string _searchKeyword = string.Empty;
     private string _sortBy = "modified";
     private string _sortOrder = "desc";
@@ -21,7 +23,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         _markdownService = markdownService ?? throw new ArgumentNullException(nameof(markdownService));
     }
 
-    public List<Note> DisplayNotes
+    public List<NoteViewModel> DisplayNotes
     {
         get => _displayNotes;
         set
@@ -78,7 +80,14 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     public async Task LoadNotesAsync()
     {
-        _allNotes = (await _noteService.GetAllNotesAsync()).ToList();
+        var notes = await _noteService.GetAllNotesAsync();
+        _allNotes = notes.Select(n => new NoteViewModel
+        {
+            Id = n.Id,
+            Title = _markdownService.GetFirstLine(n.Content),
+            Preview = _markdownService.GetPreview(n.Content, 6),
+            Note = n
+        }).ToList();
         await UpdateDisplayNotesAsync();
     }
 
@@ -100,28 +109,30 @@ public class MainWindowViewModel : INotifyPropertyChanged
         await LoadNotesAsync();
     }
 
-    public string GetNotePreview(Note note)
-    {
-        return _markdownService.GetPreview(note.Content, 6);
-    }
-
-    public string GetNoteTitle(Note note)
-    {
-        return _markdownService.GetFirstLine(note.Content);
-    }
-
     private async Task UpdateDisplayNotesAsync()
     {
-        IEnumerable<Note> result = _allNotes;
+        IEnumerable<NoteViewModel> result = _allNotes;
 
         // 搜索过滤
         if (!string.IsNullOrWhiteSpace(_searchKeyword))
         {
-            result = await _noteService.SearchNotesAsync(_searchKeyword);
+            var keyword = _searchKeyword.ToLower();
+            result = result.Where(n => 
+                n.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                n.Preview.Contains(keyword, StringComparison.OrdinalIgnoreCase)
+            );
         }
 
         // 排序
-        result = await _noteService.GetSortedNotesAsync(_sortBy, _sortOrder);
+        result = _sortBy.ToLower() switch
+        {
+            "created" => _sortOrder.ToLower() == "desc"
+                ? result.OrderByDescending(n => n.Note.Created)
+                : result.OrderBy(n => n.Note.Created),
+            _ => _sortOrder.ToLower() == "desc"
+                ? result.OrderByDescending(n => n.Note.Modified)
+                : result.OrderBy(n => n.Note.Modified)
+        };
 
         DisplayNotes = result.ToList();
     }
@@ -132,4 +143,15 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+}
+
+/// <summary>
+/// 便签视图模型，用于 UI 绑定
+/// </summary>
+public class NoteViewModel
+{
+    public Guid Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Preview { get; set; } = string.Empty;
+    public Note Note { get; set; } = new();
 }

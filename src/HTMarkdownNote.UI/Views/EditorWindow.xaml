@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         Title="编辑便签" Height="500" Width="700"
         WindowStartupLocation="CenterOwner"
-        Background="White">
+        Background="White"
+        Closing="Window_Closing">
     <DockPanel>
         <!-- 工具栏 -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="40" Background="#F5F5F5" Padding="5" Spacing="5">
@@ -18,7 +19,7 @@
             <Button Content="I" Width="35" Height="30" Padding="0" FontStyle="Italic"/>
             <Button Content="~S~" Width="35" Height="30" Padding="0"/>
             <Separator Width="1" Margin="5,0"/>
-            <Button Content="…" Width="35" Height="30" Padding="0"/>
+            <Button Content="⋯" Width="35" Height="30" Padding="0"/>
         </StackPanel>
 
         <!-- 编辑器 -->

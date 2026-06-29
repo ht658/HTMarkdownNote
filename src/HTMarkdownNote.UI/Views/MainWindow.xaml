@@ -6,12 +6,13 @@
         mc:Ignorable="d"
         Title="HT Markdown Note" Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5">
+        Background="#F5F5F5"
+        Loaded="Window_Loaded">
     <DockPanel>
         <!-- 工具栏 -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="50" Background="White" Padding="10" Spacing="10" VerticalAlignment="Center">
             <Button Name="NewNoteButton" Width="100" Height="40" Content="+ 新建便签" Click="NewNoteButton_Click" Background="#0078D4" Foreground="White" FontSize="14" Cursor="Hand"/>
-            <TextBox Name="SearchBox" Width="250" Height="40" Padding="10" Placeholder="搜索便签..." TextChanged="SearchBox_TextChanged"/>
+            <TextBox Name="SearchBox" Width="250" Height="40" Padding="10" TextChanged="SearchBox_TextChanged"/>
             <Button Name="SettingsButton" Width="100" Height="40" Content="设置" Background="#E1E1E1" FontSize="14" Cursor="Hand"/>
         </StackPanel>
 

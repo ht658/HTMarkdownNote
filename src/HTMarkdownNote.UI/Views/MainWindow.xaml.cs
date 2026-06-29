@@ -1,6 +1,8 @@
+using System;
 using System.Windows;
 using HTMarkdownNote.Core.Services;
 using HTMarkdownNote.UI.ViewModels;
+using HTMarkdownNote.Core.Models;
 
 namespace HTMarkdownNote.UI;
 
@@ -43,13 +45,13 @@ public partial class MainWindow : Window
         }
     }
 
-    private async void NoteListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void NoteListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        if (NoteListBox.SelectedItem is Note note)
+        if (NoteListBox.SelectedItem is NoteViewModel noteViewModel)
         {
             // 在新窗口打开编辑
             var editorWindow = new EditorWindow(_noteService, _markdownService) { Owner = this };
-            editorWindow.SetNote(note);
+            editorWindow.SetNote(noteViewModel.Note);
             editorWindow.Show();
         }
     }
@@ -58,9 +60,4 @@ public partial class MainWindow : Window
     {
         // TODO: 实现右键菜单（删除、置顶）
     }
-}
-
-public partial class MainWindow : Window
-{
-    // 为了使用 Note 类型，需要添加 using
 }
