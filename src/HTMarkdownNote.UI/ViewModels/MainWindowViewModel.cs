@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;                      // 修复：Select / Where / OrderBy / ToList
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;           // 修复：Task / async
 using HTMarkdownNote.Core.Models;
 using HTMarkdownNote.Core.Services;
 
@@ -117,7 +119,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         if (!string.IsNullOrWhiteSpace(_searchKeyword))
         {
             var keyword = _searchKeyword.ToLower();
-            result = result.Where(n => 
+            result = result.Where(n =>
                 n.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
                 n.Preview.Contains(keyword, StringComparison.OrdinalIgnoreCase)
             );
@@ -135,6 +137,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         };
 
         DisplayNotes = result.ToList();
+        await Task.CompletedTask;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
