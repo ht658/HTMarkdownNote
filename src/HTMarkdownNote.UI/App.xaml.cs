@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Windows;
 using HTMarkdownNote.Core.Services;
 using HTMarkdownNote.Core.Constants;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,6 @@ public partial class App : Application
     protected override void OnExit(ExitEventArgs e)
     {
         base.OnExit(e);
-        _serviceProvider?.Dispose();
+        (_serviceProvider as IDisposable)?.Dispose();
     }
 }
