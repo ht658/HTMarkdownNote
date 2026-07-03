@@ -6,32 +6,22 @@
         mc:Ignorable="d"
         Title="编辑便签" Height="500" Width="700"
         WindowStartupLocation="CenterOwner"
-        Background="White"
-        Closing="Window_Closing">
+        Background="White">
     <DockPanel>
-        <!-- 工具栏：用 Border 提供 Padding，子元素用 Margin 提供间距 -->
-        <Border DockPanel.Dock="Top" Height="40" Background="#F5F5F5" Padding="5">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Content="H1"  Width="35" Height="30" Padding="0" Margin="0,0,5,0"/>
-                <Button Content="H2"  Width="35" Height="30" Padding="0" Margin="0,0,5,0"/>
-                <Button Content="H3"  Width="35" Height="30" Padding="0" Margin="0,0,5,0"/>
-                <Separator Width="1" Margin="5,0"/>
-                <Button Content="B"   Width="35" Height="30" Padding="0" FontWeight="Bold"   Margin="0,0,5,0"/>
-                <Button Content="I"   Width="35" Height="30" Padding="0" FontStyle="Italic"  Margin="0,0,5,0"/>
-                <Button Content="~S~" Width="35" Height="30" Padding="0" Margin="0,0,5,0"/>
-                <Separator Width="1" Margin="5,0"/>
-                <Button Content="⋯"  Width="35" Height="30" Padding="0"/>
-            </StackPanel>
-        </Border>
+        <!-- 工具栏 -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="40" Background="#F5F5F5" Margin="5">
+            <Button Content="H1" Width="35" Height="30" Padding="0" Margin="2"/>
+            <Button Content="H2" Width="35" Height="30" Padding="0" Margin="2"/>
+            <Button Content="H3" Width="35" Height="30" Padding="0" Margin="2"/>
+            <Separator Width="1" Margin="5,0"/>
+            <Button Content="B" Width="35" Height="30" Padding="0" FontWeight="Bold" Margin="2"/>
+            <Button Content="I" Width="35" Height="30" Padding="0" FontStyle="Italic" Margin="2"/>
+            <Button Content="~S~" Width="35" Height="30" Padding="0" Margin="2"/>
+            <Separator Width="1" Margin="5,0"/>
+            <Button Content="⋯" Width="35" Height="30" Padding="0" Margin="2"/>
+        </StackPanel>
 
         <!-- 编辑器 -->
-        <TextBox Name="Editor"
-                 DockPanel.Dock="Bottom"
-                 Padding="10"
-                 FontFamily="Consolas"
-                 FontSize="12"
-                 AcceptsReturn="True"
-                 VerticalScrollBarVisibility="Auto"
-                 TextChanged="Editor_TextChanged"/>
+        <TextBox x:Name="Editor" DockPanel.Dock="Bottom" Padding="10" FontFamily="Consolas" FontSize="12" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextChanged="Editor_TextChanged"/>
     </DockPanel>
 </Window>

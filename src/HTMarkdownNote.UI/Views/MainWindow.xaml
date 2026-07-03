@@ -6,38 +6,17 @@
         mc:Ignorable="d"
         Title="HT Markdown Note" Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5"
-        Loaded="Window_Loaded">
+        Background="#F5F5F5">
     <DockPanel>
-        <!-- 工具栏：用 Border 提供 Padding，子元素用 Margin 提供间距 -->
-        <Border DockPanel.Dock="Top" Height="50" Background="White" Padding="10">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Name="NewNoteButton"
-                        Width="100" Height="40"
-                        Content="+ 新建便签"
-                        Click="NewNoteButton_Click"
-                        Background="#0078D4" Foreground="White"
-                        FontSize="14" Cursor="Hand"
-                        Margin="0,0,10,0"/>
-                <TextBox Name="SearchBox"
-                         Width="250" Height="40"
-                         Padding="10"
-                         TextChanged="SearchBox_TextChanged"
-                         Margin="0,0,10,0"/>
-                <Button Name="SettingsButton"
-                        Width="100" Height="40"
-                        Content="设置"
-                        Background="#E1E1E1"
-                        FontSize="14" Cursor="Hand"/>
-            </StackPanel>
-        </Border>
+        <!-- 工具栏 -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="50" Background="White" Margin="10" VerticalAlignment="Center">
+            <Button x:Name="NewNoteButton" Width="100" Height="40" Content="+ 新建便签" Click="NewNoteButton_Click" Background="#0078D4" Foreground="White" FontSize="14" Cursor="Hand" Margin="5"/>
+            <TextBox x:Name="SearchBox" Width="250" Height="40" Padding="10" TextChanged="SearchBox_TextChanged" Margin="5"/>
+            <Button x:Name="SettingsButton" Width="100" Height="40" Content="设置" Background="#E1E1E1" FontSize="14" Cursor="Hand" Margin="5"/>
+        </StackPanel>
 
         <!-- 便签列表 -->
-        <ListBox Name="NoteListBox"
-                 DockPanel.Dock="Bottom"
-                 ItemsSource="{Binding DisplayNotes}"
-                 Background="White"
-                 MouseDoubleClick="NoteListBox_MouseDoubleClick">
+        <ListBox x:Name="NoteListBox" DockPanel.Dock="Bottom" ItemsSource="{Binding DisplayNotes}" Background="White" MouseDoubleClick="NoteListBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="10" Height="80">
@@ -47,26 +26,14 @@
                                 <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- 便签内容：Spacing 改为第二个 TextBlock 加 Margin -->
-                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
-                                <TextBlock FontWeight="Bold" FontSize="14" Foreground="#333"
-                                           Text="{Binding Title}"
-                                           TextTrimming="CharacterEllipsis"/>
-                                <TextBlock FontSize="12" Foreground="#666"
-                                           Text="{Binding Preview}"
-                                           TextTrimming="WordEllipsis"
-                                           Height="45" TextWrapping="Wrap"
-                                           Margin="0,5,0,0"/>
+                            <!-- 便签内容 -->
+                            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="5">
+                                <TextBlock FontWeight="Bold" FontSize="14" Foreground="#333" Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock FontSize="12" Foreground="#666" Text="{Binding Preview}" TextTrimming="WordEllipsis" Height="45" TextWrapping="Wrap" Margin="0,5,0,0"/>
                             </StackPanel>
 
                             <!-- 操作菜单 -->
-                            <Button Grid.Column="1"
-                                    Width="40" Height="40"
-                                    Content="⋯"
-                                    VerticalAlignment="Top" HorizontalAlignment="Right"
-                                    Background="Transparent" Foreground="#999"
-                                    FontSize="18" Cursor="Hand"
-                                    Click="MoreButton_Click"/>
+                            <Button Grid.Column="1" Width="40" Height="40" Content="⋯" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Transparent" Foreground="#999" FontSize="18" Cursor="Hand" Click="MoreButton_Click"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

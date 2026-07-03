@@ -1,8 +1,8 @@
 using System;
 using System.Windows;
+using System.Windows.Threading;
 using HTMarkdownNote.Core.Models;
 using HTMarkdownNote.Core.Services;
-using System.Windows.Threading;
 
 namespace HTMarkdownNote.UI;
 
@@ -66,7 +66,14 @@ public partial class EditorWindow : Window
             _currentNote.WindowWidth = (int)Width;
             _currentNote.WindowHeight = (int)Height;
 
-            await _noteService.UpdateNoteAsync(_currentNote);
+            try
+            {
+                await _noteService.UpdateNoteAsync(_currentNote);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"保存失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 
@@ -76,7 +83,7 @@ public partial class EditorWindow : Window
         if (_autoSaveTimer?.IsEnabled == true)
         {
             _autoSaveTimer.Stop();
-            // 同步保存
+            
             if (_currentNote != null)
             {
                 _currentNote.Content = Editor.Text;
@@ -86,7 +93,15 @@ public partial class EditorWindow : Window
                 _currentNote.WindowY = (int)Top;
                 _currentNote.WindowWidth = (int)Width;
                 _currentNote.WindowHeight = (int)Height;
-                await _noteService.UpdateNoteAsync(_currentNote);
+
+                try
+                {
+                    await _noteService.UpdateNoteAsync(_currentNote);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"保存失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

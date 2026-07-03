@@ -2,7 +2,6 @@ using System;
 using System.Windows;
 using HTMarkdownNote.Core.Services;
 using HTMarkdownNote.UI.ViewModels;
-using HTMarkdownNote.Core.Models;
 
 namespace HTMarkdownNote.UI;
 
@@ -39,9 +38,9 @@ public partial class MainWindow : Window
 
     private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
-        if (_viewModel != null)
+        if (_viewModel != null && sender is System.Windows.Controls.TextBox textBox)
         {
-            _viewModel.SearchKeyword = SearchBox.Text;
+            _viewModel.SearchKeyword = textBox.Text;
         }
     }
 
@@ -56,7 +55,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private async void MoreButton_Click(object sender, RoutedEventArgs e)
+    private void MoreButton_Click(object sender, RoutedEventArgs e)
     {
         // TODO: 实现右键菜单（删除、置顶）
     }
