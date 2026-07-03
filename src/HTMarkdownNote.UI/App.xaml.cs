@@ -38,10 +38,14 @@ public partial class App : Application
             {
                 await noteServiceImpl.InitializeAsync();
             }
+
+            // 手动创建并显示主窗口
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"应用启动失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"应用启动失败: {ex.Message}\n\n{ex.StackTrace}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown(1);
         }
     }
